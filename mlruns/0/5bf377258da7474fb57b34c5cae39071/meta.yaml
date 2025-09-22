@@ -1,0 +1,14 @@
+artifact_uri: file:///D:/cancer_prediction/code/mlruns/0/5bf377258da7474fb57b34c5cae39071/artifacts
+end_time: 1758479691871
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 5bf377258da7474fb57b34c5cae39071
+run_name: capable-shark-604
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1758479680494
+status: 3
+tags: []
+user_id: YAM TEk
