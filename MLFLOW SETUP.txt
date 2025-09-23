@@ -1,8 +1,41 @@
 --------------------------------------------------- EXPERIMENT TRACKING DAGSHUB -----------------------------------------
 
 
-set MLFLOW_TRACKING_URI=
+set MLFLOW_TRACKING_URI=https://dagshub.com/alinayawar/cancer_prediction-MLflow-DagsHub.mlflow
+set MLFLOW_TRACKING_USERNAME=alinayawar
 
-set MLFLOW_TRACKING_USERNAME=
+set MLFLOW_TRACKING_PASSWORD=9d62f321790b99dd750f6f2a4e949f0baab2e568
 
-set MLFLOW_TRACKING_PASSWORD=
+------------------- minkube-------------
+open powershell as a admin
+minikube version
+minikube start
+minikube status
+
+
+
+kubectl install
+https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/
+
+
+local kubenetes
+https://www.kubeflow.org/docs/components/pipelines/legacy-v1/installation/localcluster-deployment/
+kubectl cluster-info   
+
+set PIPELINE_VERSION=2.14.3
+kubectl apply -k "github.com/kubeflow/pipelines/manifests/kustomize/cluster-scoped-resources?ref=$PIPELINE_VERSION"
+kubectl wait --for condition=established --timeout=60s crd/applications.app.k8s.io
+kubectl apply -k "github.com/kubeflow/pipelines/manifests/kustomize/env/platform-agnostic?ref=$PIPELINE_VERSION"
+
+cmd
+kubectl get pod -A
+
+kubectl port-forward -n kubeflow svc/ml-pipeline-ui 8080:80
+
+docker build --e my_mlopp .
+
+docker run my-mlopp-app
+docker login
+
+docker tag my-mlopp-app alinyy/my-mlopp-app:latest
+docker push alinyy/my-mlopp-app:latest

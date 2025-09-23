@@ -1,0 +1,39 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: mlops-pipeline-
+  annotations: {pipelines.kubeflow.org/kfp_sdk_version: 1.8.22, pipelines.kubeflow.org/pipeline_compilation_time: '2025-09-23T17:04:02.620672',
+    pipelines.kubeflow.org/pipeline_spec: '{"description": "This is my first pipeline",
+      "name": "MLOPS Pipeline"}'}
+  labels: {pipelines.kubeflow.org/kfp_sdk_version: 1.8.22}
+spec:
+  entrypoint: mlops-pipeline
+  templates:
+  - name: data-processsing
+    container:
+      command: [python, src/data_processing.py]
+      image: alinyy/my-mlopp-appp
+    metadata:
+      labels:
+        pipelines.kubeflow.org/kfp_sdk_version: 1.8.22
+        pipelines.kubeflow.org/pipeline-sdk-type: kfp
+        pipelines.kubeflow.org/enable_caching: "true"
+  - name: mlops-pipeline
+    dag:
+      tasks:
+      - {name: data-processsing, template: data-processsing}
+      - name: model-training
+        template: model-training
+        dependencies: [data-processsing]
+  - name: model-training
+    container:
+      command: [python, src/model_training.py]
+      image: alinyy/my-mlopp-appp
+    metadata:
+      labels:
+        pipelines.kubeflow.org/kfp_sdk_version: 1.8.22
+        pipelines.kubeflow.org/pipeline-sdk-type: kfp
+        pipelines.kubeflow.org/enable_caching: "true"
+  arguments:
+    parameters: []
+  serviceAccountName: pipeline-runner

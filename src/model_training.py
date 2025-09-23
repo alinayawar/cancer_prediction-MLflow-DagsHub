@@ -11,6 +11,10 @@ import mlflow.sklearn
 
 logger = get_logger(__name__)
 
+# import dagshub
+# dagshub.init(repo_owner='alinayawar', repo_name='cancer_prediction-MLflow-DagsHub', mlflow=True)
+
+
 class ModelTraining:
     def __init__(self,processed_data_path = "artifacts/processed"):
         self.processed_data_path = processed_data_path
